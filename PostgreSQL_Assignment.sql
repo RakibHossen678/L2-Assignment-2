@@ -1,6 +1,6 @@
 CREATE TABLE rangers (
     ranger_id SERIAL,
-    ranger_name VARCHAR(255),
+    name VARCHAR(255),
     region VARCHAR(255)
 );
 
@@ -22,7 +22,7 @@ CREATE TABLE sightings (
 );
 
 INSERT INTO
-    rangers (ranger_name, region)
+    rangers (name, region)
 VALUES (
         'Alice Green',
         'Northern Hills'
@@ -109,7 +109,7 @@ VALUES (
 
 -- Problem - 1
 INSERT INTO
-    rangers (ranger_name, region)
+    rangers (name, region)
 VALUES ('Derek Fox', 'Coastal Plains');
 
 -- Problem - 2
@@ -119,11 +119,11 @@ SELECT count(DISTINCT species_id) FROM sightings;
 SELECT * FROM sightings WHERE location ILIKE '%pass%';
 
 -- Problem - 4
-SELECT ranger_name, count(sighting_id)
+SELECT name, count(sighting_id)
 FROM sightings
     JOIN rangers ON sightings.ranger_id = rangers.ranger_id
 GROUP BY
-    ranger_name;
+    name;
 
 -- Problem - 5
 SELECT common_name
@@ -133,10 +133,7 @@ WHERE
     sightings.species_id IS NULL;
 
 -- Problem - 6
-SELECT
-    common_name,
-    sighting_time,
-    ranger_name
+SELECT common_name, sighting_time, name
 FROM
     sightings
     JOIN species ON sightings.species_id = species.species_id
